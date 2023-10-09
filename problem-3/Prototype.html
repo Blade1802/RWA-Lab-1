@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Note-taking App</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                background-color: #f2f2f2;
+                margin: 0;
+                padding: 0;
+            }
+
+            h1 {
+                color: #333;
+            }
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 20px;
+            }
+
+            .input-container {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+            .note-input {
+                width: 300px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                outline: none;
+            }
+
+            select {
+                padding: 10px;
+                margin-left: 10px;
+                border: none;
+                border-radius: 5px;
+                background-color: #eee;
+            }
+
+            #addNote {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                cursor: pointer;
+            }
+
+            #addNote:hover {
+                background-color: #0056b3;
+            }
+
+            .note {
+                width: 300px;
+                padding: 10px;
+                margin: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: white;
+            }
+
+            .note-text {
+                flex-grow: 1;
+            }
+
+            .note-buttons {
+                display: flex;
+                gap: 10px;
+            }
+
+            .edit-button,
+            .delete-button {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px;
+                cursor: pointer;
+            }
+
+            .edit-button:hover,
+            .delete-button:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Note-taking App</h1>
+        <div class="container">
+            <div class="input-container">
+                <input
+                    type="text"
+                    id="noteText"
+                    class="note-input"
+                    placeholder="Enter your note"
+                />
+                <select id="noteColor">
+                    <option value="yellow">Yellow</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <option value="pink">Pink</option>
+                </select>
+                <button id="addNote">Add Note</button>
+            </div>
+            <div id="notesContainer"></div>
+        </div>
+
+        <script>
+            const notesContainer = document.getElementById("notesContainer");
+            const noteColorSelect = document.getElementById("noteColor");
+            const noteText = document.getElementById("noteText");
+            const addNoteButton = document.getElementById("addNote");
+
+            addNoteButton.addEventListener("click", () => {
+                const color = noteColorSelect.value;
+                const text = noteText.value;
+
+                if (text.trim() === "") {
+                    alert("Please enter a note text.");
+                    return;
+                }
+
+                const note = document.createElement("div");
+                note.className = "note";
+                note.style.backgroundColor = color;
+
+                const noteTextDiv = document.createElement("div");
+                noteTextDiv.className = "note-text";
+                noteTextDiv.textContent = text;
+
+                const deleteButton = document.createElement("button");
+                deleteButton.className = "delete-button";
+                deleteButton.textContent = "Delete";
+                deleteButton.addEventListener("click", () => {
+                    notesContainer.removeChild(note);
+                });
+
+                const editButton = document.createElement("button");
+                editButton.className = "edit-button";
+                editButton.textContent = "Edit";
+                editButton.addEventListener("click", () => {
+                    const editText = prompt("Edit your note:", text);
+                    if (editText !== null) {
+                        noteTextDiv.textContent = editText;
+                    }
+                });
+
+                note.appendChild(noteTextDiv);
+                note.appendChild(editButton);
+                note.appendChild(deleteButton);
+
+                notesContainer.appendChild(note);
+                noteText.value = "";
+            });
+        </script>
+    </body>
+</html>
