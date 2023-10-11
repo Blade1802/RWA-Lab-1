@@ -25,7 +25,7 @@ for (let i = 0; i < p.length; i++) {
     p[i].innerText = "This website is now about cats.";
 }
 
-const span = document.getElementsByTagName("p");
+const span = document.getElementsByTagName("span");
 for (let i = 0; i < span.length; i++) {
     span[i].innerText = "The Planet of Cats";
 }
@@ -65,3 +65,7 @@ fontLink.href = "https://fonts.cdnfonts.com/css/kitty-face";
 fontLink.rel = "stylesheet";
 document.head.appendChild(fontLink);
 document.body.style.fontFamily = "Kitty face, sans-serif";
+
+// Change background to hello kitty
+document.body.style.backgroundImage =
+    "url('https://kawaiihoshi.com/wp-content/uploads/2022/08/sanrio-hello-kitty-tulips-wallpaper-1536x864.jpeg')";
